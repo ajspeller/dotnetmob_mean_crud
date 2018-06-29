@@ -134,12 +134,17 @@ router.delete('/:id', (req, res) => {
         res
           .status(200)
           .send({
-            message: 'Employee successfully deleted'
+            message: 'Employee successfully deleted',
+            status: true
           });
       } else {
         res
           .status(500)
-          .send('Error deleting the specified employee ' + JSON.stringify(err, undefined, 2));
+          .send({
+            err: JSON.stringify(err, undefined, 2),
+            message: 'Error deleting the specified employee',
+            status: false
+          });
       }
     });
   }
