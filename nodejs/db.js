@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://ajspeller:ajspeller1@ds121321.mlab.com:21321/ajs_dotnet_mob_cruddb', (err) => {
+mongoose.connect(`mongodb://ajspeller:${process.env.MONGODB_PASSWORD}@ds121321.mlab.com:21321/ajs_dotnet_mob_cruddb`, (err) => {
   if (!err) {
     console.log('MongoDB connection successful!');
   } else {
