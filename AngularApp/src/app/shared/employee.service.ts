@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import { toPromise } from 'rxjs/operators';
 import { Employee } from './employee.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Employee } from './employee.model';
 export class EmployeeService {
   selectedEmployee: Employee;
   employees: Employee[];
-  readonly baseURL = 'http://localhost:3000/employees';
+  readonly baseURL = environment.apiUrl;
 
   constructor(public http: HttpClient) {}
 
