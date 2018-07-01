@@ -25,7 +25,12 @@ router.get('/', (req, res) => {
 // => localhost:3000/employees
 router.post('/', (req, res) => {
   const emp = new Employee({
-    name: req.body.name,
+    firstName: req.body.firstName,
+    middleName: req.body.middleName,
+    lastName: req.body.lastName,
+    dob: req.body.dob,
+    email: req.body.email,
+    phone: req.body.phone,
     position: req.body.position,
     office: req.body.office,
     salary: req.body.salary
