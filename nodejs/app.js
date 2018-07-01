@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3000;
 
 const {
   mongoose
@@ -30,4 +29,6 @@ app.use((req, res, next) => {
 
 app.use('/api/employees', employeeController);
 
-app.listen(port, () => console.log(`Server started on port ${port} ...`));
+module.exports = app;
+
+// app.listen(port, () => console.log(`Server started on port ${port} ...`));
