@@ -1,0 +1,18 @@
+<mat-accordion multi="true" *ngIf="employees.length > 0">
+
+  <mat-expansion-panel *ngFor="let employee of employees">
+    <mat-expansion-panel-header>
+      {{employee.firstName}} {{employee.MI}} {{employee.lastName}}
+    </mat-expansion-panel-header>
+
+    <p>This is the primary content of the panel.</p>
+
+    <mat-action-row>
+      <button color="primary" mat-button>UPDATE</button>
+      <button color="warn" mat-button>DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+<p *ngIf="employees.length === 0" class="info-text mat-body-1">No Employees in the directory!</p>
