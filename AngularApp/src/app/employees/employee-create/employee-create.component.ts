@@ -28,6 +28,7 @@ export class EmployeeCreateComponent implements OnInit {
     }
 
     const employee: Employee = {
+      id: form.value.id,
       firstName: form.value.firstName,
       middleInitial: form.value.middleInitial,
       lastName: form.value.lastName,

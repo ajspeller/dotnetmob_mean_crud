@@ -1,7 +1,22 @@
 const mongoose = require('mongoose');
 
 const Employee = mongoose.model('Employee', {
-  name: {
+  firstName: {
+    type: String
+  },
+  middleName: {
+    type: String
+  },
+  lastName: {
+    type: String
+  },
+  dob: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  phone: {
     type: String
   },
   position: {
@@ -11,7 +26,7 @@ const Employee = mongoose.model('Employee', {
     type: String
   },
   salary: {
-    type: Number
+    type: String
   }
 });
 

@@ -19,9 +19,10 @@ export class EmployeeService {
   constructor(public http: HttpClient) {}
 
   postEmployee(employee: Employee) {
-    // return this.http.post<Employee>(this.baseURL, employee);
-    this.employees.push(employee);
-    this.employeesUpdated.next([...this.employees]);
+    return this.http.post<Employee>(this.baseURL, employee).subscribe(() => {
+      this.employees.push(employee);
+      this.employeesUpdated.next([...this.employees]);
+    });
   }
 
   getEmployeeUpdateListener() {
@@ -29,12 +30,15 @@ export class EmployeeService {
   }
 
   getEmployees() {
-    // return this.http.get<Employee[]>(this.baseURL);
-    return [...this.employees];
+    return this.http.get<Employee[]>(this.baseURL).subscribe((employeeData) => {
+      this.employees = employeeData;
+      this.employeesUpdated.next([...this.employees]);
+      console.log(employeeData);
+    });
   }
 
   updateEmployee(employee: Employee) {
-    return this.http.put<Employee>(`${this.baseURL}/${employee._id}`, employee);
+    return this.http.put<Employee>(`${this.baseURL}/${employee.id}`, employee);
   }
 
   deleteEmployee(id: string) {

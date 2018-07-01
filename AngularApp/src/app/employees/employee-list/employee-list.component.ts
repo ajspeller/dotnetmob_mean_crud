@@ -10,13 +10,13 @@ import { EmployeeService } from './../../shared/employee.service';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
-  employees: Employee[];
+  employees: Employee[] = [];
   private subscriptons = new Subscription();
 
   constructor(public employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.employees = this.employeeService.getEmployees();
+    this.employeeService.getEmployees();
     this.subscriptons.add(
       this.employeeService
         .getEmployeeUpdateListener()
