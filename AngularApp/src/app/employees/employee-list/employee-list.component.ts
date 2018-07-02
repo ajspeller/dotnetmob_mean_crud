@@ -22,8 +22,15 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
         .getEmployeeUpdateListener()
         .subscribe((employees: Employee[]) => {
           this.employees = employees;
+          console.log(`subject responded`);
         })
     );
+  }
+
+  onEmployeePut(employee: Employee) {}
+
+  onEmployeeDelete(id: string) {
+    this.employeeService.deleteEmployee(id);
   }
 
   ngOnDestroy(): void {

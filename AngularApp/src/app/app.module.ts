@@ -13,7 +13,7 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { EmployeeComponent } from './employee/employee.component';
+// import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
@@ -21,7 +21,7 @@ import { EmployeeListComponent } from './employees/employee-list/employee-list.c
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent,
+    // EmployeeComponent,
     EmployeeCreateComponent,
     HeaderComponent,
     EmployeeListComponent
