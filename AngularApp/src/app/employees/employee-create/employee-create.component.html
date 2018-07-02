@@ -1,49 +1,46 @@
 <mat-card>
-  <form #employeeForm="ngForm" (ngSubmit)="onAddEmployee(employeeForm)">
+  <form #employeeForm="ngForm" (ngSubmit)="onSaveEmployee(employeeForm)">
+
+    <input hidden matInput name="id" placeholder="id" [ngModel]="employee?.id" #id="ngModel">
 
     <mat-form-field>
-      <input matInput name="id" placeholder="id" ngModel #id="ngModel">
-      <mat-error *ngIf="id.invalid">Please enter a id</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput name="firstName" placeholder="FirstName" ngModel #firstName="ngModel" required>
+      <input matInput name="firstName" placeholder="FirstName" [ngModel]="employee?.firstName" #firstName="ngModel" required>
       <mat-error *ngIf="firstName.invalid">Please enter a Firstname</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="middleInitial" placeholder="MI" ngModel #firstName="ngModel">
+      <input matInput name="middleInitial" placeholder="MI" [ngModel]="employee?.middleInitial" #middleInitial="ngModel">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="lastName" placeholder="Lastname" ngModel #firstName="ngModel" required>
-      <mat-error *ngIf="lastName.invalid">Please enter a Lirstname</mat-error>
+      <input matInput name="lastName" placeholder="Lastname" [ngModel]="employee?.lastName" #lastName="ngModel" required>
+      <mat-error *ngIf="lastName.invalid">Please enter a Lastname</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="dob" placeholder="DOB" ngModel #firstName="ngModel">
+      <input matInput name="dob" placeholder="DOB" [ngModel]="employee?.dob" #dob="ngModel">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="email" placeholder="E-mail" ngModel #firstName="ngModel" required>
+      <input matInput name="email" placeholder="E-mail" [ngModel]="employee?.email" #email="ngModel" required>
       <mat-error *ngIf="email.invalid">Please enter an email address</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="phone" placeholder="Phone" ngModel #firstName="ngModel" required>
-      <mat-error *ngIf="phone.invalid">Please enter a Firstname</mat-error>
+      <input matInput name="phone" placeholder="Phone" [ngModel]="employee?.phone" #phone="ngModel" required>
+      <mat-error *ngIf="phone.invalid">Please enter a phone number</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="position" placeholder="Position" ngModel #firstName="ngModel">
+      <input matInput name="position" placeholder="Position" [ngModel]="employee?.position" #position="ngModel">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="office" placeholder="Office" ngModel #firstName="ngModel">
+      <input matInput name="office" placeholder="Office" [ngModel]="employee?.office" #office="ngModel">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="salary" placeholder="Salary" ngModel #firstName="ngModel">
+      <input matInput name="salary" placeholder="Salary" [ngModel]="employee?.salary" #salary="ngModel">
     </mat-form-field>
 
     <button mat-raised-button color="accent" [disabled]="employeeForm.invalid" type="submit">SAVE EMPLOYEE</button>

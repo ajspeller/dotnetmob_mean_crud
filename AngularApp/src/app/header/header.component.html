@@ -1,3 +1,11 @@
 <mat-toolbar color="primary">
-  <span>Employee Directory</span>
+  <span>
+    <a routerLink="/">Employee Directory</a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li>
+      <a routerLink="/create" mat-button routerLinkActive="mat-accent">New Employee</a>
+    </li>
+  </ul>
 </mat-toolbar>
