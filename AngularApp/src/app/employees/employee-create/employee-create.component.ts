@@ -1,7 +1,9 @@
-import { EmployeeService } from './../../shared/employee.service';
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../employee.model';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+
+import { EmployeeService } from './../../shared/employee.service';
+import { Employee } from '../employee.model';
 
 @Component({
   selector: 'app-employee-create',
@@ -9,6 +11,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./employee-create.component.css']
 })
 export class EmployeeCreateComponent implements OnInit {
+  private mode = 'create';
+  private employeeId: string;
+  employee: Employee;
+
+
   firstName = '';
   middleInitial = '';
   lastName = '';
@@ -19,10 +26,42 @@ export class EmployeeCreateComponent implements OnInit {
   office = '';
   salary = '';
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    public employeeService: EmployeeService,
+    public route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
-  onAddEmployee(form: NgForm) {
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('employeeId')) {
+        this.mode = 'edit';
+        this.employeeId = paramMap.get('employeeId');
+        this.employeeService
+          .getEmployee(this.employeeId)
+          .subscribe(employeeData => {
+            this.employee = {
+              id: employeeData._id,
+              firstName: employeeData.firstName,
+              middleInitial: employeeData.middleInitial,
+              lastName: employeeData.lastName,
+              dob: employeeData.dob,
+              email: employeeData.email,
+              phone: employeeData.phone,
+              position: employeeData.position,
+              office: employeeData.office,
+              salary: employeeData.salary
+            };
+          });
+      } else {
+        this.mode = 'create';
+        this.employeeId = null;
+      }
+    });
+  }
+  onSaveEmployee(form: NgForm) {
+    console.log(this.mode);
+    console.log(form.value);
+
     if (form.invalid) {
       return;
     }
@@ -39,7 +78,13 @@ export class EmployeeCreateComponent implements OnInit {
       office: form.value.office,
       salary: form.value.salary
     };
-    this.employeeService.postEmployee(employee);
-    form.resetForm();
+
+    if (this.mode === 'create') {
+      this.employeeService.postEmployee(employee);
+    } else {
+      this.employeeService.updateEmployee(employee);
+    }
+
+    // form.resetForm();
   }
 }

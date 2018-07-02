@@ -9,25 +9,26 @@ import {
   MatToolbarModule,
   MatCardModule,
   MatButtonModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-// import { EmployeeComponent } from './employee/employee.component';
 import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // EmployeeComponent,
     EmployeeCreateComponent,
     HeaderComponent,
     EmployeeListComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -35,7 +36,8 @@ import { EmployeeListComponent } from './employees/employee-list/employee-list.c
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

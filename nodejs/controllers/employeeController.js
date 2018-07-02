@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const employee = new Employee({
     firstName: req.body.firstName,
-    middleName: req.body.middleName,
+    middleInitial: req.body.middleInitial,
     lastName: req.body.lastName,
     dob: req.body.dob,
     email: req.body.email,
@@ -68,16 +68,14 @@ router.get('/:id', (req, res) => {
       id: employeeId
     });
   } else {
-    Employee.findById(employeeId, (err, employee) => {
-      if (!err) {
-        res
-          .status(200)
-          .send(employee);
-      } else {
-        res
-          .status(500)
-          .send('Error retrieving the specified employee ' + JSON.stringify(err, undefined, 2));
-      }
+    Employee.findById(employeeId).then(employee => {
+      res
+        .status(200)
+        .send(employee);
+    }).catch(err => {
+      res
+        .status(500)
+        .send('Error retrieving the specified employee ' + JSON.stringify(err, undefined, 2));
     });
   }
 });
@@ -97,26 +95,36 @@ router.put('/:id', (req, res) => {
       id: employeeId
     });
   } else {
-    Employee.findByIdAndUpdate(employeeId, {
-      $set: {
-        name: req.body.name,
-        position: req.body.position,
-        office: req.body.office,
-        salary: req.body.salary
-      }
-    }, {
-      new: true
-    }, (err, updatedEmployee) => {
-      if (!err) {
+
+    const employee = new Employee({
+      _id: req.body.id,
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
+      email: req.body.email,
+      phone: req.body.phone,
+      position: req.body.position,
+      office: req.body.office,
+      salary: req.body.salary
+    });
+
+    Employee.updateOne({
+        _id: employeeId
+      }, employee)
+      .then((result => {
+        console.log(result);
         res
           .status(200)
-          .send(updatedEmployee);
-      } else {
+          .send({
+            message: "Update Successful"
+          });
+      }))
+      .catch(err => {
         res
           .status(500)
           .send('Error retrieving the specified employee ' + JSON.stringify(err, undefined, 2));
-      }
-    });
+      });
   }
 });
 

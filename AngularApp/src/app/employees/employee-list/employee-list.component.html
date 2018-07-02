@@ -8,7 +8,7 @@
     <p>This is the primary content of the panel.</p>
 
     <mat-action-row>
-      <button color="primary" mat-button (click)="onEmployeePut(employee)">UPDATE</button>
+      <a color="primary" mat-button [routerLink]="['/edit',employee.id]">UPDATE</a>
       <button color="warn" mat-button (click)="onEmployeeDelete(employee.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
