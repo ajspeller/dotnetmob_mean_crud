@@ -2,6 +2,11 @@
   <form #employeeForm="ngForm" (ngSubmit)="onAddEmployee(employeeForm)">
 
     <mat-form-field>
+      <input matInput name="id" placeholder="id" ngModel #id="ngModel">
+      <mat-error *ngIf="id.invalid">Please enter a id</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput name="firstName" placeholder="FirstName" ngModel #firstName="ngModel" required>
       <mat-error *ngIf="firstName.invalid">Please enter a Firstname</mat-error>
     </mat-form-field>

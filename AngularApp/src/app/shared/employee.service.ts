@@ -19,10 +19,13 @@ export class EmployeeService {
   constructor(public http: HttpClient) {}
 
   postEmployee(employee: Employee) {
-    return this.http.post<Employee>(this.baseURL, employee).subscribe(() => {
-      this.employees.push(employee);
-      this.employeesUpdated.next([...this.employees]);
-    });
+    return this.http
+      .post<{ message: string; employeeId: string }>(this.baseURL, employee)
+      .subscribe(status => {
+        employee.id = status.employeeId;
+        this.employees.push(employee);
+        this.employeesUpdated.next([...this.employees]);
+      });
   }
 
   getEmployeeUpdateListener() {
@@ -30,11 +33,31 @@ export class EmployeeService {
   }
 
   getEmployees() {
-    return this.http.get<Employee[]>(this.baseURL).subscribe((employeeData) => {
-      this.employees = employeeData;
-      this.employeesUpdated.next([...this.employees]);
-      console.log(employeeData);
-    });
+    return this.http
+      .get<any>(this.baseURL)
+      .pipe(
+        map(employeeData => {
+          return employeeData.map(employee => {
+            return {
+              id: employee._id,
+              firstName: employee.firstName,
+              middleName: employee.middleInitial,
+              lastName: employee.lastName,
+              dob: employee.dob,
+              email: employee.email,
+              phone: employee.phone,
+              position: employee.position,
+              office: employee.office,
+              salary: employee.salary
+            };
+          });
+        })
+      )
+      .subscribe(transformedEmployees => {
+        this.employees = transformedEmployees;
+        this.employeesUpdated.next([...this.employees]);
+        console.log(this.employees);
+      });
   }
 
   updateEmployee(employee: Employee) {
@@ -42,6 +65,12 @@ export class EmployeeService {
   }
 
   deleteEmployee(id: string) {
-    return this.http.delete(`${this.baseURL}/${id}`);
+    return this.http.delete(`${this.baseURL}/${id}`).subscribe(() => {
+      const updatedEmployees = this.employees.filter(
+        employee => employee.id !== id
+      );
+      this.employees = updatedEmployees;
+      this.employeesUpdated.next([...this.employees]);
+    });
   }
 }

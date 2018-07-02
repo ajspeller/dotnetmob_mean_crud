@@ -8,23 +8,22 @@ const {
 
 // => localhost:3000/employees
 router.get('/', (req, res) => {
-  Employee.find((err, employees) => {
-    if (!err) {
-      res
-        .status(200)
-        .send(employees)
-    } else {
-      res
-        .status(500)
-        .send('Error in retrieving employees : ' + JSON.stringify(err, undefined, 2))
-      console.log('Error in retrieving employees : ' + JSON.stringify(err, undefined, 2));
-    }
+  Employee.find().then((employees) => {
+    res
+      .status(200)
+      .send(employees)
+    console.log(employees);
+  }).catch(err => {
+    res
+      .status(500)
+      .send('Error in retrieving employees : ' + JSON.stringify(err, undefined, 2));
+    console.log('Error in retrieving employees : ' + JSON.stringify(err, undefined, 2));
   });
 });
 
 // => localhost:3000/employees
 router.post('/', (req, res) => {
-  const emp = new Employee({
+  const employee = new Employee({
     firstName: req.body.firstName,
     middleName: req.body.middleName,
     lastName: req.body.lastName,
@@ -35,13 +34,16 @@ router.post('/', (req, res) => {
     office: req.body.office,
     salary: req.body.salary
   });
-  emp
+  employee
     .save()
-    .then((newEmployee) => res
-      .status(201)
-      .send({
-        message: 'Successfully created the new employee'
-      }))
+    .then((createdEmployee) => {
+      res
+        .status(201)
+        .send({
+          message: 'Successfully created the new employee',
+          employeeId: createdEmployee._id
+        });
+    })
     .catch(err => {
       console.log('Error saving new employee ' + JSON.stringify(err, undefined, 2));
       res
